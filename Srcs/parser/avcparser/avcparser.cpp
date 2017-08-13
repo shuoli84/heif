@@ -1484,8 +1484,13 @@ bool AvcParser::parseSPSConfigValues(const std::vector<uint8_t>& byteStr,
     // Parse SPS data.
     SequenceParameterSet spsData =
     { };
+
+#ifdef DEBUG
     int result = AvcParser::parseSPS(bitstr, spsData);
     assert(result == 0); // Check that parsing was successful.
+#else
+    AvcParser::parseSPS(bitstr, spsData);
+#endif
 
     // Store data.
     configValues.mChromaFormat = spsData.mChromaFormatIdc;
